@@ -5,6 +5,7 @@ from .form import ApplicantDetailsForm
 from recruiterOrg.models import Organization
 from django.contrib import messages
 from recruiter.models import Jobs
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -12,19 +13,24 @@ def updateApplicantDetails(request):
     if request.user.isApplicant:
         resume = ApplicantDetails.objects.get(user = request.user)
         if request.method == "POST":
-            form = ApplicantDetailsForm(request.POST , instance=resume)
-            if form.is_valid():
-                userForm = form.save(commit=False)
-                applicant = User.objects.get(id = request.user.id)
-                applicant.first_name = request.POST['first_name']
-                applicant.last_name = request.POST['last_name']
-                applicant.resumeUpdatedbyApplicant = True
-                userForm.save()
-                applicant.save()
-                messages.success(request , 'Voila! Your details are submitted successfully. Starting Applying Now!')
-                return redirect('applicant-dashboard')
-            else:
-                messages.warning(request , 'Uh, Oh! Something went wrong!')
+            try:
+                form = ApplicantDetailsForm(request.POST , request.FILES, instance=resume)
+                if form.is_valid():
+                    userForm = form.save(commit=False)
+                    applicant = User.objects.get(id = request.user.id)
+                    applicant.first_name = request.POST['first_name']
+                    applicant.last_name = request.POST['last_name']
+                    applicant.resumeUpdatedbyApplicant = True
+                    userForm.save()
+                    applicant.save()
+                    messages.success(request , 'Voila! Your details are submitted successfully. Starting Applying Now!')
+                    return redirect('applicant-dashboard')
+                else:
+                    messages.warning(request , 'Uh, Oh! Something went wrong!')
+            except Exception as e:
+                messages.warning(request , 'Permission Denied')
+                redirect('Uh, Oh! Something went wrong!')
+
 
         else:
             form = ApplicantDetailsForm(instance=resume)
@@ -97,7 +103,11 @@ def userApplications(request):
     context = {'form':alljobs}
     return render(request , 'applicantDetails/applications.html' , context)
 
-
+def download_file(request):
+    uploaded_file = ApplicantDetails.objects.get(user_id = request.user.id)
+    response = HttpResponse(uploaded_file.cv, content_type='application/force-download')
+    response['Content-Disposition'] = f'attachment; filename="{uploaded_file.cv.name}"'
+    return response
 
 
     

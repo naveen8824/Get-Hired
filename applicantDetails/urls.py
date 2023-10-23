@@ -7,5 +7,6 @@ urlpatterns= [
     path('dashboard' , views.viewJobs , name='applicant-dashboard'),
     path('jobDetails/<int:pk>/' , views.viewJobDetails , name='view-job'),
     path('jobDetails/<int:pk>/apply/' , views.applyJob , name='apply-job'),
-    path('myApplications' , views.userApplications , name='user-applications')
+    path('myApplications' , views.userApplications , name='user-applications'),
+    path('download/' , views.download_file , name='download')
 ]

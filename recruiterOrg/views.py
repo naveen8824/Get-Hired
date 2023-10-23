@@ -6,7 +6,8 @@ from .form import OrganizationDetails
 from recruiter.models import Jobs
 from django.contrib import messages
 from recruiter.form import JobPostForm
-from applicantDetails.models import JobApplications
+from applicantDetails.models import JobApplications,ApplicantDetails
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -16,17 +17,23 @@ def UpdateOrgDetails(request):
     print (request.user)
     userOrg = Organization.objects.get(recruiter=request.user)
     if request.method == "POST":
-        form = OrganizationDetails(request.POST , instance=userOrg)
-        if form.is_valid():
-            userForm = form.save(commit=False)
-            user = User.objects.get(username = request.user)
-            user.orgUpdatedbyRecruiter = True
-            userForm.save()
-            user.save()
-            messages.success(request , 'Voila! Your organization is now active on Get Hired!')
-            return redirect('recruiter-dashboard')
-        else:
+        try:
+            form = OrganizationDetails(request.POST , instance=userOrg)
+            if form.is_valid():
+                userForm = form.save(commit=False)
+                user = User.objects.get(username = request.user)
+                user.orgUpdatedbyRecruiter = True
+                userForm.save()
+                user.save()
+                messages.success(request , 'Voila! Your organization is now active on Get Hired!')
+                return redirect('recruiter-dashboard')
+            else:
+                messages.warning(request , 'Uh, Oh! Something went wrong!')
+        except Exception as e:
             messages.warning(request , 'Uh, Oh! Something went wrong!')
+            return redirect('recruiter-dashboard')
+
+
         
     else:
         form = OrganizationDetails(instance=userOrg)
@@ -99,6 +106,16 @@ def showApplicants(request , id):
 
     context = {'applicants':allApplicants}
     return render(request , 'recruiterOrg/showApplicants.html' , context)
+
+def download_file(request , id):
+    uploaded_file = ApplicantDetails.objects.get(user_id = id)
+    if not bool(uploaded_file.cv):
+        messages.warning(request,'Something Went Wrong')
+        return redirect('recruiter-dashboard')
+    else:
+        response = HttpResponse(uploaded_file.cv, content_type='application/force-download')
+        response['Content-Disposition'] = f'attachment; filename="{uploaded_file.cv.name}"'
+        return response
 
 
 

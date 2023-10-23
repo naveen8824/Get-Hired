@@ -17,6 +17,7 @@
         <h5 class="card-title" style="text-align: center;">Applicant Details</h5>
         <p class="card-text"> Name: {{applicant.first_name}} {{applicant.last_name}}</p>
         <p class="card-text"> Email: {{applicant.email}}</p>
+        <a href="{% url 'download-resume' applicant.id %}">Download Resume</a>
       </div>
   </div>
   {% endfor %}

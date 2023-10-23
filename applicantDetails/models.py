@@ -11,7 +11,7 @@ class ApplicantDetails (models.Model):
     city = models.CharField(max_length=100, null=True , blank=True)
     state = models.CharField(max_length=100, null=True , blank=True)
     country = models.CharField(max_length=100, null=True , blank=True)
-    # resume = models.FileField
+    cv = models.FileField(upload_to="cv/" , max_length=250 , null=True , default=None)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

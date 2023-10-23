@@ -6,5 +6,7 @@ urlpatterns = [
     path('org-details/' , views.OrgDetails , name = 'org-details'),
     path('postAd/' , views.jobPost , name='post-job'),
     path('dashboard/' , views.viewJobAds, name='recruiter-dashboard'),
-    path('dashboard/showApplicants/<int:id>/' , views.showApplicants , name = 'show-applicants')
+    path('dashboard/showApplicants/<int:id>/' , views.showApplicants , name = 'show-applicants'),
+    path('download/<int:id>' , views.download_file , name='download-resume')
+    
 ]

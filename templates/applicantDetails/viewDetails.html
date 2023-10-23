@@ -28,6 +28,10 @@
                         <h5>Country</h5>
                         <p>{{form.country}}</p>
                     </div>
+                    <div class="form-group required">
+                        <h5>Resume</h5>
+                        <a href="{% url 'download' %}">Download Resume</a>
+                    </div>
                     <div class="form-group pt-1">
                         <a class="btn btn-primary btn-block" href="{% url 'update-details' %}" type="submit">Edit Details</a>
                     </div>
