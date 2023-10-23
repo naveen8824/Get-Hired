@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<h1 style="text-align: center;"> Job Details</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div class="card card-body">
+                    {%csrf_token%}
+                    <div class="form-group required">
+                        <h5>Role</h5>
+                        <p>{{form.jobTitle}}</p>
+                    </div>
+                    <div class="form-group required">
+                        <h5>Organization</h5>
+                        <p>{{form.company}}</p>
+                    </div>
+                    <div class="form-group required">
+                        <h5>Job Description</h5>
+                        <p>{{form.jobDesc}}</p>
+                    </div>
+                    <div class="form-group required">
+                        <h5>Location</h5>
+                        <p>{{form.jobLocation}}</p>
+                    </div>
+                    <div class="form-group pt-1">
+                        <a class="btn btn-primary btn-block" href="apply" type="submit">Apply Now</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{%endblock content%}
+

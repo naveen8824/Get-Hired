@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{% load widget_tweaks %}
+{%block content%}
+
+<h1 style="text-align: center;"> Post a Job</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div class="card card-body">
+                <form id="submitForm" method="post">
+                    {%csrf_token%}
+                    <div class="form-group required">
+                        <label for="job title">Job Designation</label>
+                        {% render_field form.jobTitle class="form-control"  %} 
+
+                    </div>
+                    <div class="form-group required">
+                        <label for="desc">Job Description</label>
+                        {% render_field form.jobDesc class="form-control"  %}
+
+                    </div>
+                    <div class="form-group required">
+                        <label for="location">Job Location</label>
+                        {% render_field form.jobLocation class="form-control"  %}
+                    </div>
+                    <div class="form-group pt-1">
+                        <button class="btn btn-primary btn-block" type="submit">Save Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{%endblock content%}
+

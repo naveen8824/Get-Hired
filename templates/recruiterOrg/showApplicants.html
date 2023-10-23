@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
+<section>
+<div class="card-columns"> 
+  {% for applicant in applicants%}
+  <div class="card">
+      <div class="card-body">
+        <h5 class="card-title" style="text-align: center;">Applicant Details</h5>
+        <p class="card-text"> Name: {{applicant.first_name}} {{applicant.last_name}}</p>
+        <p class="card-text"> Email: {{applicant.email}}</p>
+      </div>
+  </div>
+  {% endfor %}
+  </div>
+</section>
+
+
+{%endblock%}

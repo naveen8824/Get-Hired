@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{% load widget_tweaks %}
+{%block content%}
+<h2 style="text-align: center;">Update Details</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div class="card card-body">
+                <form id="submitForm" method="post">
+                    {%csrf_token%}
+                    <div class="form-group required">
+                        <label for="first_name">First Name</label>
+                        {% render_field form.first_name class="form-control" %}
+
+                    </div>
+                    <div class="form-group required">
+                        <label for="last_name">Last Name</label>
+                        {% render_field form.last_name class="form-control" %}
+
+                    </div>
+                    <div class="form-group required">
+                        <label for="city">City</label>
+                        {% render_field form.city class="form-control" %}
+                    </div>
+                    <div class="form-group required">
+                        <label for="state">State</label>
+                        {% render_field form.state class="form-control" %}
+                    </div>
+                    <div class="form-group required">
+                        <label for="state">Country</label>
+                        {% render_field form.country class="form-control" %}
+                    </div>
+                    <div class="form-group pt-1">
+                        <button class="btn btn-primary btn-block" type="submit">Save Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{%endblock content%}

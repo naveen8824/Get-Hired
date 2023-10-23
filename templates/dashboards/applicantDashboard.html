@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+{% if not request.user.resumeUpdatedbyApplicant%}
+<div class="alert alert-danger" role="alert">
+  <b> Complete your <a href="{% url 'update-details' %}">profile</a>
+     and starting applying to jobs.
+     </b>
+</div>
+{%endif%}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}}" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
+<h1 style="text-align: center;"> All Jobs </h1>
+<section>
+<div class="card-columns"> 
+{% for job in jobs%}
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title" style="text-align: center;"> {{job.jobTitle}}</h5>
+      <p class="card-text"> Company: {{job.company}}</p>
+      <p class="card-text"><small class="text-muted">Location: {{job.jobLocation}}</small></p>
+      <div style="text-align: center;">
+        {% if showDetails %}
+        <a href = "jobDetails/{{job.id}}"> View Details</a>
+        {% else %}
+        <a href = "update-details"> View Details</a>
+        {% endif %}
+        
+      </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</section>
+
+
+{%endblock%}
