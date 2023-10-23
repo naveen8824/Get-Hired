@@ -9,31 +9,31 @@
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid ">
       
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Get Hired</a>
+            <span class="navbar-brand" >GET HIRED</span>
           </div>
       
           <div class="navbar-nav mr-auto">
             <ul class="nav navbar-nav">
               {%if request.user.isApplicant%}
               {%if request.user.resumeUpdatedbyApplicant%}
-              <a class="nav-item nav-link" href="{% url 'applicant-dashboard' %}">Home</a>
-              <a class="nav-item nav-link" href="{% url 'user-applications' %}">My Applications</a>
-              <a class="nav-item nav-link" href="{% url 'applicant-details' %}">My Profile</a>
+              <a class="nav-item active nav-link" href="{% url 'applicant-dashboard' %}">Home</a>
+              <a class="nav-item active nav-link" href="{% url 'user-applications' %}">My Applications</a>
+              <a class="nav-item active nav-link" href="{% url 'applicant-details' %}">My Profile</a>
               {%else%}
-              <a class="nav-item nav-link" href="{% url 'applicant-dashboard' %}">Home</a>
-              <a class="nav-item nav-link" href="{% url 'update-details' %}">Complete Profile</a>
+              <a class="nav-item active nav-link" href="{% url 'applicant-dashboard' %}">Home</a>
+              <a class="nav-item active nav-link" href="{% url 'update-details' %}">Complete Profile</a>
               {%endif%}
               {%elif request.user.isRecruiter%}
               {%if request.user.orgUpdatedbyRecruiter%}
-              <a class="nav-item nav-link" href="{%url 'post-job' %}">Post a Job</a>
-              <a class="nav-item nav-link" href="{%url 'recruiter-dashboard' %}">My Ads</a>
-              <a class="nav-item nav-link" href="{% url 'org-details' %}">My Profile</a>
+              <a class="nav-item active nav-link" href="{%url 'post-job' %}">Post a Job</a>
+              <a class="nav-item active nav-link" href="{%url 'recruiter-dashboard' %}">My Ads</a>
+              <a class="nav-item active nav-link" href="{% url 'org-details' %}">My Profile</a>
               {%else%}
-              <a class="nav-item nav-link" href="{% url 'update-org-details' %}">Complete Profile</a>
+              <a class="nav-item active nav-link" href="{% url 'update-org-details' %}">Complete Profile</a>
               {%endif%}
               {%endif%}
       
