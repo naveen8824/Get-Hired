@@ -105,6 +105,9 @@ def userApplications(request):
 
 def download_file(request):
     uploaded_file = ApplicantDetails.objects.get(user_id = request.user.id)
+    if not bool(uploaded_file.cv):
+        messages.warning(request,'Something Went Wrong')
+        return redirect('applicant-dashboard')
     response = HttpResponse(uploaded_file.cv, content_type='application/force-download')
     response['Content-Disposition'] = f'attachment; filename="{uploaded_file.cv.name}"'
     return response
